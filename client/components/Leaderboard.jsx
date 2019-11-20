@@ -2,8 +2,8 @@ import React from 'react';
 
 export default ({ allHistory }) => {
   const display = allHistory.map(el => (
-    <div>
-      {Object.values(el).map(prop => `${prop}\t`)}
+    <div key={el.id}>
+      {[el.username, el.num_questions, el.num_correct].join('\t')}
     </div>
   ));
   return (

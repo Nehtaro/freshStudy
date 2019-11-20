@@ -15,6 +15,7 @@ export default (state = initialState, action) => {
     case types.START_NEW_GAME:
       return {
         ...state,
+        isGameOver: false,
         isPlaying: true,
         isPaused: false,
         activeCardIndex: 0,

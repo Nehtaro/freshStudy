@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default ({ feed }) => {
-  const display = feed.map(el => <p>{el}</p>);
+  const display = feed.map((el, idx) => <p key={idx}>{el}</p>);
   return (
     <div id="livefeed">
       LiveFeed

@@ -25,7 +25,7 @@ module.exports = {
     })
   },
   getResults(req, res, next) {
-    const queryText = `SELECT username, num_questions, num_questions, num_correct FROM "History" INNER JOIN "Users" ON "History".user_id = "Users".id;`;
+    const queryText = `SELECT "History".id, username, num_questions, num_questions, num_correct FROM "History" INNER JOIN "Users" ON "History".user_id = "Users".id;`;
     pool.query(queryText, (err, dbResponse) => {
       if(err) {
         return next({log: `Error getting history, ${err}`, message: `Server could not get results`});

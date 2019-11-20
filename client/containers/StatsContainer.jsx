@@ -23,7 +23,7 @@ const StatsContainer = ({
   }, []);
   return (
     <div id="stats">
-      <LiveFeed feed={feed}/>
+      <LiveFeed feed={feed} />
       <Leaderboard allHistory={allHistory} />
     </div>
   );
