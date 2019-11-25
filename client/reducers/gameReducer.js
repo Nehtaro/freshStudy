@@ -1,4 +1,5 @@
 import * as types from '../constants/gameActionTypes';
+import produce from 'immer';
 
 const initialState = {
   isGameOver: false,
@@ -10,59 +11,46 @@ const initialState = {
   allHistory: [],
 };
 
-export default (state = initialState, action) => {
+export default produce((draft = initialState, action) => {
   switch (action.type) {
     case types.START_NEW_GAME:
-      return {
-        ...state,
-        isGameOver: false,
-        isPlaying: true,
-        isPaused: false,
-        activeCardIndex: 0,
-        answerHistory: [],
-        cards: action.payload,
-      };
+      draft.isGameOver = false;
+      draft.isPlaying = true;
+      draft.isPaused = false;
+      draft.activeCardIndex = 0;
+      draft.answerHistory = [];
+      draft.cards = action.payload;
+      break;
     case types.END_GAME:
-      const newHistory = action.payload || state.allHistory;
-      return {
-        isGameOver: true,
-        isPlaying: false,
-        isPaused: false,
-        activeCardIndex: 0,
-        answerHistory: [],
-        cards: [],
-        allHistory: newHistory,
-      }
+      if (action.payload) draft.allHistory = action.payload;
+      draft.isGameOver = true;
+      draft.isPlaying = false;
+      draft.isPaused = false;
+      draft.activeCardIndex = 0;
+      draft.answerHistory = [];
+      draft.cards = [];
+      break;
     case types.PAUSE_GAME:
-      return {
-        ...state,
-        isPlaying: false,
-        isPaused: true,
-      };
+      draft.isPlaying = false;
+      draft.isPaused = true;
+      break;
     case types.RESUME_GAME:
-      return {
-        ...state,
-        isPlaying: true,
-        isPaused: false,
-      };
+      draft.isPlaying = true;
+      draft.isPaused = false;
+      break;
     case types.ATTEMPT_ANSWER:
-      const newState = { ...state };
-      newState.answerHistory = [...newState.answerHistory];
-      newState.activeCardIndex += 1;
-      if (newState.activeCardIndex >= newState.cards.length) newState.isGameOver = true;
-      newState.answerHistory.push(action.payload);
-      return newState;
+      draft.activeCardIndex += 1;
+      if (draft.activeCardIndex >= draft.cards.length) draft.isGameOver = true;
+      draft.answerHistory.push(action.payload);
+      break;
     case types.RETURN_TO_MAIN_MENU:
-      return {
-        ...state,
-        isPlaying: false,
-      }
+      draft.isPlaying = false;
+      break;
     case types.UPDATE_HISTORY:
-      return {
-        ...state,
-        allHistory: action.payload,
-      };
+      draft.allHistory = action.payload;
+      break;
     default:
-      return state;
+      break;
   }
-};
+  return draft;
+});
