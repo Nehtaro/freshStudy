@@ -1,10 +1,12 @@
 import React from 'react';
 
-export default ({ feed }) => {
+
+export default ({ username, feed }) => {
   const display = feed.map((el, idx) => <p key={idx}>{el}</p>);
+
   return (
     <div id="livefeed">
-      LiveFeed
+      Live Feed from {username}!
       {display}
     </div>
   )

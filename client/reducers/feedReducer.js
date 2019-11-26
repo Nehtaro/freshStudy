@@ -1,18 +1,31 @@
 import * as types from '../constants/feedActionTypes';
+import produce from 'immer';
 
-const initialState = {
-  history: [],
-};
+const initialState = { };
 
-export default (state = initialState, action) => {
+export default produce((draft = initialState, action) => {
   switch (action.type) {
     case types.UPDATE_FEED:
-      const newHistory = [...state.history];
-      newHistory.push(action.payload);
-      return {
-        history: newHistory,
+      console.log('action', action.payload);
+      if (!draft[action.payload.username]) {
+        draft[action.payload.username] = {
+          isOver: false,
+          results: [action.payload.isCorrect],
+        };
+      } else draft[action.payload.username].results.push(action.payload.isCorrect);
+      break;
+    case types.EXPIRE_FEED:
+      draft[action.payload].shift();
+      break;
+    case types.ENGAGE_FEED:
+      draft[action.payload] = {
+        isOver: false,
+        results: [], 
       };
-    default:
-      return state;
+      break;
+    case types.DISENGAGE_FEED:
+      draft[action.payload].isOver = true;
+      break;
   }
-};
+  return draft;
+});

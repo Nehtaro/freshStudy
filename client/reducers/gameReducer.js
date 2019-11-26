@@ -49,8 +49,6 @@ export default produce((draft = initialState, action) => {
     case types.UPDATE_HISTORY:
       draft.allHistory = action.payload;
       break;
-    default:
-      break;
   }
   return draft;
 });

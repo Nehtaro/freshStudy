@@ -1,11 +1,9 @@
 import * as types from '../constants/userActionTypes';
 
 const initialState = {
-  user: {
-    isLoggedIn: false,
-    isLoading: false,
-    userData: { },
-  },
+  isLoggedIn: false,
+  isLoading: false,
+  userData: { },
 };
 
 export default (state = initialState, action) => {

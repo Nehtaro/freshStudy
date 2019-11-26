@@ -1,12 +1,20 @@
 import * as types from '../constants/gameActionTypes';
 import messageTypes from '../constants/messageTypes';
-import { emit, emitAction } from '../services/socket.service';
+import { emit } from '../services/socket.service';
 
-export const startNewGame = () => dispatch => { 
+export const startNewGame = () => (dispatch, getState) => {
+  const state = getState();
   fetch('/questions')
     .then(res => res.json())
     .then(data => {
-      emit(messageTypes.START);
+      if (!state.user.isLoggedIn) {
+        dispatch({
+          type: types.START_NEW_GAME,
+          payload: data,
+        });
+        return;
+      }
+      emit(messageTypes.START, { username: state.user.userData.username });
       dispatch({
         type: types.START_NEW_GAME,
         payload: data,
@@ -17,16 +25,19 @@ export const startNewGame = () => dispatch => {
 
 export const endGame = () => (dispatch, getState) => {
   const state = getState();
-  if (!state.user.isLoggedIn) return dispatch({
-    type: types.END_GAME,
+  if (!state.user.isLoggedIn) {
+    dispatch({ type: types.END_GAME });
+    return;
+  }
+  const body = JSON.stringify({
+    username: state.user.userData.username,
+    numQs: state.game.answerHistory.length,
+    numCorrect: state.game.answerHistory.reduce((acc, cur) => acc + cur),
   });
+  emit(messageTypes.END, { username: state.user.userData.id });
   const options = {
     method: 'POST',
-    body: JSON.stringify({
-      id: state.user.userData.id,
-      numQs: state.game.answerHistory.length,
-      numCorrect: state.game.answerHistory.reduce((acc, cur) => acc + cur),
-    }),
+    body,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -58,11 +69,19 @@ export const resumeGame = () => ({
   type: types.RESUME_GAME,
 });
 
-export const attemptAnswer = emitAction(isCorrect => ({
-  key: messageTypes.ANSWER,
-  type: types.ATTEMPT_ANSWER,
-  payload: isCorrect,
-}));
+export const attemptAnswer = (isCorrect) => (dispatch, getState) => {
+  const state = getState();
+  if (state.user.isLoggedIn) {
+    emit(messageTypes.ANSWER, {
+      isCorrect,
+      username: state.user.userData.username
+    });
+  }
+  dispatch({
+    type: types.ATTEMPT_ANSWER,
+    payload: isCorrect,
+  });
+}
 
 export const returnToMainMenu = () => ({
   type: types.RETURN_TO_MAIN_MENU

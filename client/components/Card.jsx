@@ -5,7 +5,6 @@ const correctReactionTextArr = ['THIS PLEASES ME', 'I HAVE TAUGHT YOU WELL', 'YO
 const incorrectReactionTextArr = ['SNUGGLE HARDER', 'DISAPPOINTED', 'THERE IS NO TRY'];
 
 export default ({ question, correctAns, wrongAnswers, attemptAnswer, answerHistory }) => {
-  console.log('top of Card')
 
   ///////////////////////////////////
   // CONST: format question + answers

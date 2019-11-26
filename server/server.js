@@ -10,11 +10,25 @@ const cookieParser = require('cookie-parser');
 const authController = require('./controllers/authController');
 const databaseController = require('./controllers/databaseController');
 
+const messageTypes = { };
+
+messageTypes.ANSWER = 'answer-question';
+messageTypes.START = 'start-game';
+messageTypes.END = 'end-game';
+
 io.on('connection', socket => {
-  socket.on('answerQuestion', data => {
-    if (data.payload) socket.broadcast.emit('answer', 'OTHER PLAYER RIGHT');
-    else socket.broadcast.emit('answer', 'OTHER PLAYER WRONG');
+  socket.on(messageTypes.ANSWER, data => {
+    console.log(`Message: ${messageTypes.ANSWER} Data: ${data}`);
     console.log(data);
+    socket.broadcast.emit(messageTypes.ANSWER, data);
+  });
+  socket.on(messageTypes.START, data => {
+    console.log(`Message: ${messageTypes.START} Data: ${data}`);
+    socket.broadcast.emit(messageTypes.START, data);
+  });
+  socket.on(messageTypes.END, data => {
+    console.log(`Message: ${messageTypes.END} Data: ${data}`);
+    socket.broadcast.emit(messageTypes.END, data);
   });
 });
 
