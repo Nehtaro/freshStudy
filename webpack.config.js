@@ -1,19 +1,12 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
   entry: './client/index.js',
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'OAUTH_CLIENT_ID': '"711651127971-t90e5r7504tvdgf2mh17bp7a9a46dnff.apps.googleusercontent.com"',
-      }
-    })
-  ],
   output: {
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
-    filename: 'bundle.js',
+    publicPath: 'build/',
+    chunkFilename: '[name].bundle.js',
+    filename: '[name].bundle.js',
   },
   mode: process.env.NODE_ENV,
   devServer: {

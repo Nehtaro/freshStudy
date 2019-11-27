@@ -18,16 +18,18 @@ messageTypes.END = 'end-game';
 
 io.on('connection', socket => {
   socket.on(messageTypes.ANSWER, data => {
-    console.log(`Message: ${messageTypes.ANSWER} Data: ${data}`);
-    console.log(data);
+    console.log('Message', messageTypes.ANSWER);
+    console.log('Data', data);
     socket.broadcast.emit(messageTypes.ANSWER, data);
   });
   socket.on(messageTypes.START, data => {
-    console.log(`Message: ${messageTypes.START} Data: ${data}`);
+    console.log('Message', messageTypes.START);
+    console.log('Data', data);
     socket.broadcast.emit(messageTypes.START, data);
   });
   socket.on(messageTypes.END, data => {
-    console.log(`Message: ${messageTypes.END} Data: ${data}`);
+    console.log('Message', messageTypes.END);
+    console.log('Data', data);
     socket.broadcast.emit(messageTypes.END, data);
   });
 });

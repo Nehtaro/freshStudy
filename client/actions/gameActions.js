@@ -14,7 +14,10 @@ export const startNewGame = () => (dispatch, getState) => {
         });
         return;
       }
-      emit(messageTypes.START, { username: state.user.userData.username });
+      emit(messageTypes.START, {
+        username: state.user.userData.username,
+        ts: Date.now(),
+      });
       dispatch({
         type: types.START_NEW_GAME,
         payload: data,
@@ -29,12 +32,16 @@ export const endGame = () => (dispatch, getState) => {
     dispatch({ type: types.END_GAME });
     return;
   }
-  const body = JSON.stringify({
+  const gameInfo = {
     username: state.user.userData.username,
     numQs: state.game.answerHistory.length,
     numCorrect: state.game.answerHistory.reduce((acc, cur) => acc + cur),
+  };
+  emit(messageTypes.END, {
+    ...gameInfo,
+    ts: Date.now(),
   });
-  emit(messageTypes.END, { username: state.user.userData.id });
+  const body = JSON.stringify(gameInfo);
   const options = {
     method: 'POST',
     body,
@@ -74,7 +81,8 @@ export const attemptAnswer = (isCorrect) => (dispatch, getState) => {
   if (state.user.isLoggedIn) {
     emit(messageTypes.ANSWER, {
       isCorrect,
-      username: state.user.userData.username
+      username: state.user.userData.username,
+      ts: Date.now(),
     });
   }
   dispatch({

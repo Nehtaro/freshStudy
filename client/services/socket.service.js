@@ -8,17 +8,14 @@ const socket = io('ws://localhost:3000',
 );
 
 socket.on(messageTypes.ANSWER, data => {
-  console.log(data);
   store.dispatch(actions.updateFeed(data));
 });
 
 socket.on(messageTypes.START, data => {
-  console.log(data);
   store.dispatch(actions.engageFeed(data));
 });
 
 socket.on(messageTypes.END, data => {
-  console.log(data);
   store.dispatch(actions.disengageFeed(data));
 });
 

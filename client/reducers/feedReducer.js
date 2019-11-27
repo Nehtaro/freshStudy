@@ -3,29 +3,30 @@ import produce from 'immer';
 
 const initialState = { };
 
-export default produce((draft = initialState, action) => {
-  switch (action.type) {
+export default produce((draft = initialState, { type, payload }) => {
+  switch (type) {
     case types.UPDATE_FEED:
-      console.log('action', action.payload);
-      if (!draft[action.payload.username]) {
-        draft[action.payload.username] = {
-          isOver: false,
-          results: [action.payload.isCorrect],
-        };
-      } else draft[action.payload.username].results.push(action.payload.isCorrect);
-      break;
-    case types.EXPIRE_FEED:
-      draft[action.payload].shift();
+      if (draft && draft[payload.username] && draft[payload.username].results) {
+        draft[payload.username].results.push(
+          {
+            isCorrect: payload.isCorrect,
+            ts: payload.ts,
+          });
+      }
       break;
     case types.ENGAGE_FEED:
-      draft[action.payload] = {
-        isOver: false,
-        results: [], 
+      draft[payload.username] = {
+        results: [],
+        start: payload.ts,
       };
       break;
     case types.DISENGAGE_FEED:
-      draft[action.payload].isOver = true;
+      draft[payload.username].end = payload.ts;
+      draft[payload.username].score = `${payload.numCorrect} out of ${paylod.numQs}`;
       break;
+    case types.EXPIRE_FEED:
+        draft[payload].results.shift();
+        break;
   }
   return draft;
 });

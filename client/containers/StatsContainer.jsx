@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Leaderboard from '../components/Leaderboard';
@@ -11,28 +11,31 @@ const mapStateToProps = ({ game, feed }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getHistory: () => dispatch(actions.getHistory()),
+  expireFeed: (username) => dispatch(actions.expireFeed(username)),
 });
 
 const StatsContainer = ({
   allHistory,
   feed,
   getHistory,
+  expireFeed
 }) => {
   useEffect(() => {
     getHistory();
   }, []);
 
-  const UsernameList = Object.keys(feed);
-
-  const feeds = UsernameList.length
-    ? UsernameList.map(username => {
-        <LiveFeed
-          key={username}
-          username={username}
-          feed={feed[username]}
-        />
-      })
-    : null;
+  let feeds = null;
+  const usernameList = Object.keys(feed);
+  if (usernameList.length) {
+    feeds = usernameList.map(username => (
+      <LiveFeed
+        key={username}
+        username={username}
+        feed={feed[username]}
+        expireFeed={expireFeed}
+      />
+    ));
+  }
 
   return (
     <div id="stats">

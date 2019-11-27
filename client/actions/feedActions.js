@@ -5,17 +5,17 @@ export const updateFeed = (data) => ({
   payload: data,
 });
 
-export const expireFeed = (username) => ({
+export const expireFeed = (data) => ({
   type: types.EXPIRE_FEED,
-  payload: username,
+  payload: data,
 });
 
-export const engageFeed = (username) => ({
+export const engageFeed = (data) => ({
   type: types.ENGAGE_FEED,
-  payload: username,
+  payload: data,
 });
 
-export const disengageFeed = (username) => ({
+export const disengageFeed = (data) => ({
   type: types.DISENGAGE_FEED,
-  payload: username,
+  payload: data,
 });
