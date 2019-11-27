@@ -32,9 +32,9 @@ export const register = (newUserData) => dispatch => {
 };
 
 export const verify = () => dispatch => {
-  dispatch({
-    type: types.FETCH_REQUEST,
-  });
+  // dispatch({
+  //   type: types.FETCH_REQUEST,
+  // });
   user.verify()
     .then(userData => {
       if (userData === false) return dispatch({ type: types.FETCH_FAILURE });
