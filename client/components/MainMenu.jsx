@@ -5,7 +5,7 @@ import Oauth from './Oauth';
 import NewGamePrompt from './NewGamePrompt';
 import StatsContainer from '../containers/StatsContainer';
 
-export default ({
+const MainMenu = ({
   startNewGame,
   user,
   isLoggedIn,
@@ -52,3 +52,5 @@ export default ({
     </div>
   )
 };
+
+export default MainMenu;

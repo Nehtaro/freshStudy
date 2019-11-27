@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default ({
+const Signup = ({
   register,
   handleToggle,
 }) => {
@@ -29,3 +29,5 @@ export default ({
     </div>
   );
 };
+
+export default Signup;

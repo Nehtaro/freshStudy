@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 import NewGamePrompt from './NewGamePrompt';
 
-export default ({
+const GameScreen = ({
   activeCardIndex,
   cards,
   isGameOver,
@@ -44,3 +44,5 @@ export default ({
     </div>
   );
 };
+
+export default GameScreen;

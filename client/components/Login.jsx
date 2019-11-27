@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-export default ({
+const Login = ({
   login,
   handleToggle,
 }) => {
@@ -31,3 +31,5 @@ export default ({
       </>
   );
 };
+
+export default Login;

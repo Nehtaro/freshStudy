@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ startNewGame, isLoggedIn, isPaused, resume }) => {
+const NewGamePrompt = ({ startNewGame, isLoggedIn, isPaused, resume }) => {
   const handleClick = () => {
     if (isPaused) resume();
     else startNewGame();
@@ -17,3 +17,5 @@ export default ({ startNewGame, isLoggedIn, isPaused, resume }) => {
     </div>
   );
 };
+
+export default NewGamePrompt;

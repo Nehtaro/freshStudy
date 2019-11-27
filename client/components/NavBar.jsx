@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ user, isLoggedIn, logout, isPlaying, pause, returnToMainMenu }) => {
+const NavBar = ({ user, isLoggedIn, logout, isPlaying, pause, returnToMainMenu }) => {
   return (
     <div id="navbar">
       <div id="navbar-title">Fresh Study</div>
@@ -25,5 +25,7 @@ export default ({ user, isLoggedIn, logout, isPlaying, pause, returnToMainMenu }
         )}
         </div>
     </div>
-  )
-}
+  );
+};
+
+export default NavBar;

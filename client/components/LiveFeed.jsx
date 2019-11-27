@@ -1,7 +1,7 @@
 import React from 'react';
 import useInterval from '../hooks/useInterval';
 
-export default ({ username, feed, expireFeed }) => {
+const LiveFeed = ({ username, feed, expireFeed }) => {
   useInterval(() => {
     expireFeed(username);
   }, 10000)
@@ -21,3 +21,5 @@ export default ({ username, feed, expireFeed }) => {
     </div>
   )
 };
+
+export default LiveFeed;

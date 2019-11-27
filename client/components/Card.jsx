@@ -4,7 +4,7 @@ import { useSpring, useTrail, animated, interpolate } from 'react-spring';
 const correctReactionTextArr = ['THIS PLEASES ME', 'I HAVE TAUGHT YOU WELL', 'YOU HAVE A BRIGHT FUTURE'];
 const incorrectReactionTextArr = ['SNUGGLE HARDER', 'DISAPPOINTED', 'THERE IS NO TRY'];
 
-export default ({ question, correctAns, wrongAnswers, attemptAnswer, answerHistory }) => {
+const Card = ({ question, correctAns, wrongAnswers, attemptAnswer, answerHistory }) => {
 
   ///////////////////////////////////
   // CONST: format question + answers
@@ -158,4 +158,6 @@ export default ({ question, correctAns, wrongAnswers, attemptAnswer, answerHisto
     })}
     </div>
   );
-}
+};
+
+export default Card;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ allHistory }) => {
+const Leaderboard = ({ allHistory }) => {
   const display = allHistory.map(el => (
     <div key={el.id}>
       {[el.username, el.num_questions, el.num_correct].join('\t')}
@@ -13,3 +13,5 @@ export default ({ allHistory }) => {
     </div>
   );
 };
+
+export default Leaderboard;
