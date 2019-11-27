@@ -34,10 +34,9 @@ const MainMenu = ({
               </>
             : <>
                 <div className="login-user-form">
-                <Signup
-                  register={register}
-                  handleToggle={handleToggle} />
-                <Oauth />
+                  <Signup
+                    register={register}
+                    handleToggle={handleToggle} />
                 </div>
               </>
           )}

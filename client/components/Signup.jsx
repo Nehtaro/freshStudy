@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Oauth from './Oauth';
 
 const Signup = ({
   register,
@@ -12,21 +13,34 @@ const Signup = ({
     if (email && username && password) register({ email, username, password });
   };
   return (
-    <div>
-      <form className="login-form" id="register" onSubmit={handleSubmit}>
-        <label>Email
-          <input className="emailInput" type="text" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </label>
-        <label>Username
-          <input className="userNameInput" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        </label>
-        <label>Password
-          <input className="passwordInput" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </label>
-        <input className="registerBtn" type="submit" value="Register" />
-      </form>
-      <button className="loginHere" type="button" onClick={handleToggle}>Login here!</button>
-    </div>
+    <>
+      <div>
+        <form id="register" onSubmit={handleSubmit}>
+          <label>
+            <input type="text" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
+          </label>
+          <label>
+            <input type="text" value={username} placeholder="Username" onChange={(e) => setUsername(e.target.value)} required />
+          </label>
+          <label>
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </label>
+          <button type="submit">Register</button>
+        </form>
+      </div>
+      <div style={{ marginTop: '20px',
+                    width: '100%',
+                    textAlign: 'center'
+                    }}>Or,
+        <Oauth />
+      </div>
+      <div style={{ marginTop: '40px',
+                    width: '100%',
+                    textAlign: 'center'
+                    }}>Already have an account?
+        <button type="button" onClick={handleToggle}>Login Here!</button>
+      </div>
+    </>
   );
 };
 
