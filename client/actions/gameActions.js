@@ -1,6 +1,6 @@
 import * as types from '../constants/gameActionTypes';
 import messageTypes from '../constants/messageTypes';
-import { emit } from '../services/socket.service';
+import emit from '../services/socket.service';
 
 export const startNewGame = () => (dispatch, getState) => {
   const state = getState();

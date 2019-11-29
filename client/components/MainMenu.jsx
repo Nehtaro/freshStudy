@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Login from './Login';
 import Signup from './Signup';
-import Oauth from './Oauth';
 import NewGamePrompt from './NewGamePrompt';
 import StatsContainer from '../containers/StatsContainer';
 
@@ -43,9 +42,7 @@ const MainMenu = ({
           <div className="welcome">
             {isLoggedIn && `Welcome ${user.username}!`}
           </div>
-          <div className="stats-container">
-            <StatsContainer />
-        </div>
+          <StatsContainer />
         </div>
       </div>
     </div>

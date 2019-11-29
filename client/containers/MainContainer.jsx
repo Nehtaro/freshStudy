@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import GameContainer from './GameContainer';
 import NavBar from '../components/NavBar';
-import MainMenu from '../components/MainMenu';
+const MainMenu = lazy(() => import('../components/MainMenu'));
+const GameContainer = lazy(() => import('./GameContainer'));
 
 const mapStateToProps = ({ game, user }) => ({
   isPlaying: game.isPlaying,
@@ -54,8 +54,8 @@ const MainContainer = ({
         returnToMainMenu={returnToMainMenu}
       />
       {isLoading && 'Loading...'}
-      {!isLoading && (
-        isPlaying === true
+      <Suspense fallback={<div>Loading...</div>}>
+        {(isPlaying === true
           ? <GameContainer
               startNewGame={startNewGame}
               isLoggedIn={isLoggedIn}
@@ -69,7 +69,8 @@ const MainContainer = ({
               resume={resume}
               isPaused={isPaused}
             />
-      )}
+        )}
+      </Suspense>
     </div>
   );
 };

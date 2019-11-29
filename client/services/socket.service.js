@@ -19,14 +19,16 @@ socket.on(messageTypes.END, data => {
   store.dispatch(actions.disengageFeed(data));
 });
 
-export const emitAction = action => {
-  return (...args) => {
-    const result = action.call(this, ...args);
-    if (socket) socket.emit(result.key, { payload: result.payload, type: result.type });
-    return result;
-  };
-};
+// export const emitAction = action => {
+//   return (...args) => {
+//     const result = action.call(this, ...args);
+//     if (socket) socket.emit(result.key, { payload: result.payload, type: result.type });
+//     return result;
+//   };
+// };
 
-export const emit = (key, ...args) => {
+const emit = (key, ...args) => {
   if (socket) socket.emit(key, ...args);
 }
+
+export default emit;

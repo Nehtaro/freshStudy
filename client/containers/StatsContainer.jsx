@@ -38,7 +38,7 @@ const StatsContainer = ({
   }
 
   return (
-    <div id="stats">
+    <div id="stats-container">
       {feeds}
       <Leaderboard allHistory={allHistory} />
     </div>

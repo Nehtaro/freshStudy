@@ -57,4 +57,4 @@ export const logout = (isLoggedIn) => dispatch => {
       })
       .catch(console.error);
   }
-}
+};

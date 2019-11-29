@@ -81,10 +81,12 @@ app.delete('/logout', authController.deleteSession, (req, res) => {
     res.json('Delete successful')
 });
 
-app.use('/build', express.static(path.resolve(__dirname, '../build')));
+app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
 
 app.get('/', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '../client/index.html'));
+    return (process.env.NODE_ENV === 'production')
+      ? res.sendFile(path.resolve(__dirname, '../dist/index.html'))
+      : res.sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 
 app.use('*', (req, res, next) => {
